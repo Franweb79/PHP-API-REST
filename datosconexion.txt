@@ -1,0 +1,4 @@
+user:frangod
+pass:pa*2018
+databasename:curso_angular_victor_apirest
+servername:localhost
