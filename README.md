@@ -1,0 +1,1 @@
+Mock API rest to be used with the SAP webapp built with Angular6
