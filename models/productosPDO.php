@@ -222,7 +222,7 @@ class ProductosPDO{
 
                     'status' => 'ok',
                     'responseCode' => 200,
-                    'message'=>'successfully registered product'
+                    'message'=> 'successfully inserted'
                 );
             }
             else

@@ -2,3 +2,5 @@ user:frangod
 pass:pa*2018
 databasename:curso_angular_victor_apirest
 servername:localhost
+
+YA LOS PUEDES CAMBIAR CUANDO LOS SUBAS A UN SERVER, MAJO, Y BORRAR ESTE ARCHIVO DE GIT SI ES QUE ESTA

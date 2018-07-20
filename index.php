@@ -31,19 +31,19 @@
     
 
       
-        echo "hola mundo desde slim";
+       // echo "hola mundo desde slim";
 
         
     });
 
     $app->get("/prueba2",function()  use($app){
 
-        echo "p2";
+       // echo "p2";
      });
 
     $app->get("/",function()  use($app){
 
-        echo "hola index";
+        //echo "hola index";
      });
 
 
@@ -51,11 +51,35 @@
 
      //PATH TO INSERT PRODUCTS
 
-     $app->post("/productos",function() use($app,$objProducto){
+     $app->post("/crear-producto",function() use($app,$objProducto){
 
-        $json=$app->request->post("json");
-        $dataDecoded=json_decode($json,true);//el true hace que se nos convierta de un objeto a un array
+        //jason= $app->request->post("json");
+        $json=$app->request->getBody();
 
+        //var_dump($json);
+
+        //die();
+
+       /* var_dump($json);*/
+
+        //$json=json_encode($json);
+
+        //var_dump($json);
+
+       
+        
+        $dataDecoded=json_decode($json,true);
+        
+        //var_dump($dataDecoded);
+
+      // echo $stra=implode(" ",$dataDecoded ); 
+
+     
+
+        
+        //json_decode($json,true);//el true hace que se nos convierta de un objeto a un array
+
+      // die();
         
         if(!isset($dataDecoded['nombre']))
         {
@@ -79,7 +103,7 @@
             $dataDecoded['imagen']=NULL;
         }
 
-       $objProducto->insertProduct($dataDecoded["nombre"],$dataDecoded["descripcion"],$dataDecoded["precio"], $dataDecoded['imagen']);
+        $objProducto->insertProduct($dataDecoded["nombre"],$dataDecoded["descripcion"],$dataDecoded["precio"], $dataDecoded['imagen']);
 
 
     
