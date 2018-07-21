@@ -394,7 +394,7 @@ class ProductosPDO{
 
     public function uploadFile()
     {
-        if(isset($_FILES['imagen']))
+        if(isset($_FILES['image']))
         {
             //echo "existe el archivo";
 

@@ -185,7 +185,7 @@
         
         
         
-        //first, we upload it and we will pass the name to the database with the updateFile method
+        //first, we upload it and we will pass the name to the database with the updateProduct method
         
         
         
