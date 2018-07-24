@@ -53,8 +53,8 @@
 
      $app->post("/crear-producto",function() use($app,$objProducto){
 
-        //jason= $app->request->post("json");
-        $json=$app->request->getBody();
+       // $json= $app->request->post("json");
+       $json=$app->request->getBody();
 
         //var_dump($json);
 
@@ -74,13 +74,57 @@
 
       // echo $stra=implode(" ",$dataDecoded ); 
 
-      echo strlen($dataDecoded['nombre']);
+      echo strlen($dataDecoded['nombre'])."\n";
 
-        
+        $valor="0.1";
+
+        //compare strings to number with php with operators https://www.dyn-web.com/php/strings/type.php
+
+
+        if($valor>0)
+        {
+            echo "mayor que 0";
+        }
+        else
+        {
+            echo "no";
+        }
         //json_decode($json,true);//el true hace que se nos convierta de un objeto a un array
 
       // die();
+
+      /*if(strlen($dataDecoded['nombre'])>=3)
+      {
+        echo "bien".$dataDecoded['nombre'];
+
+        var_dump( $dataDecoded['nombre']);
+
         
+        if( (strlen($dataDecoded['descripcion'])>=10) && (strlen($dataDecoded['descripcion'])<=300))
+        {
+            if($dataDecoded['precio'] >0)
+            {
+
+            }
+        }
+      }
+      else
+      {
+        
+        var_dump( $dataDecoded);
+
+        $result=Array(
+
+            'status' => 'internal server error',
+            'responseCode' => '500',
+            'message' => ' not valid data'
+
+        );
+
+        echo json_encode($result);
+      }
+        */
+      /*
         if(!isset($dataDecoded['nombre']))
         {
             $dataDecoded['nombre']=NULL;
@@ -102,6 +146,47 @@
         {
             $dataDecoded['imagen']=NULL;
         }
+
+      */
+      
+      var_dump($dataDecoded);
+      /*foreach($dataDecoded as $key => $value)
+      {
+          echo $key . '=>'.$value;
+      }*/
+
+      //declare some variables to evaluate conditions because don´t want to create a very long if later
+
+      //this returns 1 when true, and nothing when false
+      $isNameValid=strlen($dataDecoded['nombre'])>=3;
+
+      $isDescriptionValid=(strlen($dataDecoded['descripcion'])>=10) && strlen($dataDecoded['descripcion'])<=300;
+
+      $isPriceValid=$dataDecoded['precio'] >0;
+
+      $isImageValid=(($dataDecoded['imagen'] != "") && ($dataDecoded['imagen'] != NULL) );
+
+      echo "eeee".$isNameValid."\n";
+
+      echo "eeee".$isDescriptionValid."\n";
+
+      echo "eeee".$isPriceValid."\n";
+
+      echo "eeee".$isImageValid."\n";
+
+
+      //so, now
+      if($isNameValid==1 && $isDescriptionValid==1 && $isPriceValid==1&& $isImageValid==1)
+      {
+          echo "ok";
+      }
+      else{
+          echo "no";
+      }
+
+
+
+
 
         $objProducto->insertProduct($dataDecoded["nombre"],$dataDecoded["descripcion"],$dataDecoded["precio"], $dataDecoded['imagen']);
 
