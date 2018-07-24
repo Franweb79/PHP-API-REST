@@ -74,7 +74,7 @@
 
       // echo $stra=implode(" ",$dataDecoded ); 
 
-     
+      echo strlen($dataDecoded['nombre']);
 
         
         //json_decode($json,true);//el true hace que se nos convierta de un objeto a un array
