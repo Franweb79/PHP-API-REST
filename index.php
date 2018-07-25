@@ -74,21 +74,21 @@
 
       // echo $stra=implode(" ",$dataDecoded ); 
 
-      echo strlen($dataDecoded['nombre'])."\n";
+     // echo strlen($dataDecoded['nombre'])."\n";
 
-        $valor="0.1";
+      //  $valor="0.1";
 
         //compare strings to number with php with operators https://www.dyn-web.com/php/strings/type.php
 
 
-        if($valor>0)
+      /*  if($valor>0)
         {
             echo "mayor que 0";
         }
         else
         {
             echo "no";
-        }
+        }*/
         //json_decode($json,true);//el true hace que se nos convierta de un objeto a un array
 
       // die();
@@ -149,7 +149,7 @@
 
       */
       
-      var_dump($dataDecoded);
+    //  var_dump($dataDecoded);
       /*foreach($dataDecoded as $key => $value)
       {
           echo $key . '=>'.$value;
@@ -172,14 +172,12 @@
       //so, now
       if($isNameValid==1 && $isDescriptionValid==1 && $isPriceValid==1 && $isImageValid==1)
       {
-          echo "ok";
+          //echo "ok";
 
           $objProducto->insertProduct($dataDecoded["nombre"],$dataDecoded["descripcion"],$dataDecoded["precio"], $dataDecoded['imagen']);
 
       }
-      else{
-          echo "no";
-      }
+      
 
 
 
