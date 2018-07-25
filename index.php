@@ -166,19 +166,16 @@
 
       $isImageValid=(($dataDecoded['imagen'] != "") && ($dataDecoded['imagen'] != NULL) );
 
-      echo "eeee".$isNameValid."\n";
-
-      echo "eeee".$isDescriptionValid."\n";
-
-      echo "eeee".$isPriceValid."\n";
-
-      echo "eeee".$isImageValid."\n";
+    
 
 
       //so, now
-      if($isNameValid==1 && $isDescriptionValid==1 && $isPriceValid==1&& $isImageValid==1)
+      if($isNameValid==1 && $isDescriptionValid==1 && $isPriceValid==1 && $isImageValid==1)
       {
           echo "ok";
+
+          $objProducto->insertProduct($dataDecoded["nombre"],$dataDecoded["descripcion"],$dataDecoded["precio"], $dataDecoded['imagen']);
+
       }
       else{
           echo "no";
@@ -188,7 +185,6 @@
 
 
 
-        $objProducto->insertProduct($dataDecoded["nombre"],$dataDecoded["descripcion"],$dataDecoded["precio"], $dataDecoded['imagen']);
 
 
     
