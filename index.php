@@ -259,6 +259,37 @@
 
      //path to upload images
 
+     $app->post("/upload-file",function($id_producto) use($app,$objProducto){
+
+        
+        
+        
+        //first, we upload it and we will pass the name to the database with the updateProduct method
+        
+        
+        
+        
+        $imageData=$objProducto->uploadFile();
+
+       // echo $imageData["complete_name"];
+
+        $imageDataNameArray= Array(
+
+
+                                'imagen' => $imageData["complete_name"]
+                            );
+
+       
+        
+        $imageDataNameJSON=json_encode($imageDataNameArray);
+
+       return $imageDataNameJSON;
+
+
+
+     });
+
+
      $app->post("/upload-file/:id_producto",function($id_producto) use($app,$objProducto){
 
         
