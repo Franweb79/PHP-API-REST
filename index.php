@@ -259,7 +259,7 @@
 
      //path to upload images
 
-     $app->post("/upload-file",function($id_producto) use($app,$objProducto){
+     $app->post("/upload-file",function() use($app,$objProducto){
 
         
         

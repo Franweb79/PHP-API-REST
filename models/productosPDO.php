@@ -394,13 +394,16 @@ class ProductosPDO{
 
     public function uploadFile()
     {
-        if(isset($_FILES['image']))
+        
+        var_dump($_FILES);
+        //die();
+        if(isset($_FILES['filesUploaded']))
         {
             //echo "existe el archivo";
 
             $piramideUploader=new PiramideUploader();
 
-            $response=$piramideUploader->upload("image-curso","imagen","assets/uploads/images",array("image/jpeg","image/png","image/gif"));
+            $response=$piramideUploader->upload("image-curso",'filesUploaded',"assets/uploads/images",array("image/jpeg","image/png","image/gif"));
         
             $fileInfo=$piramideUploader->getInfoFile();
 
