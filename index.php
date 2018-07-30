@@ -23,6 +23,8 @@
 
    $objProducto=new  ProductosPDO();
 
+   $imageData="eo";
+
 
 
 
@@ -51,10 +53,18 @@
 
      //PATH TO INSERT PRODUCTS
 
-     $app->post("/crear-producto",function() use($app,$objProducto){
+     $app->post("/crear-producto",function() use($app,$objProducto,$imageData){
 
-       // $json= $app->request->post("json");
-       $json=$app->request->getBody();
+        
+        
+        
+        
+        $json=$app->request->getBody();
+
+       
+
+       
+        // $json= $app->request->post("json");
 
         //var_dump($json);
 
@@ -66,9 +76,16 @@
 
         //var_dump($json);
 
+
        
         
         $dataDecoded=json_decode($json,true);
+
+        
+
+        
+
+       
         
         //var_dump($dataDecoded);
 
@@ -174,6 +191,9 @@
       {
           //echo "ok";
 
+
+         
+        
           $objProducto->insertProduct($dataDecoded["nombre"],$dataDecoded["descripcion"],$dataDecoded["precio"], $dataDecoded['imagen']);
 
       }
@@ -259,7 +279,7 @@
 
      //path to upload images
 
-     $app->post("/upload-file",function() use($app,$objProducto){
+     $app->post("/upload-file",function() use($app,$objProducto,$imageData){
 
         
         

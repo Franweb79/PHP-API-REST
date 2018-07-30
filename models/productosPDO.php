@@ -239,7 +239,7 @@ class ProductosPDO{
            
 
 
-            echo json_encode($result);
+            return json_encode($result);
 
             
     
@@ -395,7 +395,7 @@ class ProductosPDO{
     public function uploadFile()
     {
         
-        var_dump($_FILES);
+        //var_dump($_FILES);
         //die();
         if(isset($_FILES['filesUploaded']))
         {
@@ -413,7 +413,7 @@ class ProductosPDO{
 
             //echo json_encode($fileInfo);
 
-            return $fileInfo; //array with name and everything, we will use the name to update database, passing that name to the updateFile method
+            echo json_encode($fileInfo);  
         
         }
         else
