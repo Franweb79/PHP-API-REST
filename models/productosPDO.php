@@ -218,6 +218,8 @@ class ProductosPDO{
     
             if($sth->execute())//execute returns true if everithing is ok
             {
+                //var_dump($sth->execute());
+                
                 $result=array(
 
                     'status' => 'ok',
