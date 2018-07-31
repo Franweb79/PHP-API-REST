@@ -218,18 +218,22 @@ class ProductosPDO{
     
             if($sth->execute())//execute returns true if everithing is ok
             {
+                
+                
                 $result=array(
 
-                    'status' => 'ok',
-                    'responseCode' => 200,
+                    'status' => 'Created',
+                    'responseCode' => 201,//succesfull connection and created new resource
                     'message'=> 'successfully inserted'
                 );
             }
             else
             {
+               
+                
                 $result=array(
 
-                    'status' => 'error',
+                    'status' => 'Not found',
                     'responseCode' => 404,
                     'message'=>'couldn´t create the product'
                 );
@@ -239,7 +243,7 @@ class ProductosPDO{
            
 
 
-            return json_encode($result);
+            return $result;
 
             
     
