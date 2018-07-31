@@ -239,7 +239,7 @@ class ProductosPDO{
            
 
 
-            echo json_encode($result);
+            return json_encode($result);
 
             
     
@@ -394,13 +394,16 @@ class ProductosPDO{
 
     public function uploadFile()
     {
-        if(isset($_FILES['image']))
+        
+        //var_dump($_FILES);
+        //die();
+        if(isset($_FILES['filesUploaded']))
         {
             //echo "existe el archivo";
 
             $piramideUploader=new PiramideUploader();
 
-            $response=$piramideUploader->upload("image-curso","imagen","assets/uploads/images",array("image/jpeg","image/png","image/gif"));
+            $response=$piramideUploader->upload("image-curso",'filesUploaded',"assets/uploads/images",array("image/jpeg","image/png","image/gif"));
         
             $fileInfo=$piramideUploader->getInfoFile();
 
@@ -410,7 +413,7 @@ class ProductosPDO{
 
             //echo json_encode($fileInfo);
 
-            return $fileInfo; //array with name and everything, we will use the name to update database, passing that name to the updateFile method
+            echo json_encode($fileInfo);  
         
         }
         else

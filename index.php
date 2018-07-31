@@ -23,6 +23,8 @@
 
    $objProducto=new  ProductosPDO();
 
+   $imageData="eo";
+
 
 
 
@@ -51,10 +53,18 @@
 
      //PATH TO INSERT PRODUCTS
 
-     $app->post("/crear-producto",function() use($app,$objProducto){
+     $app->post("/crear-producto",function() use($app,$objProducto,$imageData){
 
-       // $json= $app->request->post("json");
-       $json=$app->request->getBody();
+        
+        
+        
+        
+        $json=$app->request->getBody();
+
+       
+
+       
+        // $json= $app->request->post("json");
 
         //var_dump($json);
 
@@ -66,9 +76,16 @@
 
         //var_dump($json);
 
+
        
         
         $dataDecoded=json_decode($json,true);
+
+        
+
+        
+
+       
         
         //var_dump($dataDecoded);
 
@@ -162,7 +179,7 @@
 
       $isDescriptionValid=(strlen($dataDecoded['descripcion'])>=10) && strlen($dataDecoded['descripcion'])<=300;
 
-      $isPriceValid=$dataDecoded['precio'] >0;
+      $isPriceValid=$dataDecoded['precio'] >=0;
 
       $isImageValid=(($dataDecoded['imagen'] != "") && ($dataDecoded['imagen'] != NULL) );
 
@@ -174,7 +191,12 @@
       {
           //echo "ok";
 
-          $objProducto->insertProduct($dataDecoded["nombre"],$dataDecoded["descripcion"],$dataDecoded["precio"], $dataDecoded['imagen']);
+
+         
+        
+         $result= $objProducto->insertProduct($dataDecoded["nombre"],$dataDecoded["descripcion"],$dataDecoded["precio"], $dataDecoded['imagen']);
+
+         echo $result;//need to catch the response, por que return no vale y echo si
 
       }
       
@@ -258,6 +280,37 @@
      );
 
      //path to upload images
+
+     $app->post("/upload-file",function() use($app,$objProducto,$imageData){
+
+        
+        
+        
+        //first, we upload it and we will pass the name to the database with the updateProduct method
+        
+        
+        
+        
+        $imageData=$objProducto->uploadFile();
+
+       // echo $imageData["complete_name"];
+
+        $imageDataNameArray= Array(
+
+
+                                'imagen' => $imageData["complete_name"]
+                            );
+
+       
+        
+        $imageDataNameJSON=json_encode($imageDataNameArray);
+
+       return $imageDataNameJSON;
+
+
+
+     });
+
 
      $app->post("/upload-file/:id_producto",function($id_producto) use($app,$objProducto){
 
