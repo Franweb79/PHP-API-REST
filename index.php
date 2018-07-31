@@ -196,8 +196,21 @@
         
          $result= $objProducto->insertProduct($dataDecoded["nombre"],$dataDecoded["descripcion"],$dataDecoded["precio"], $dataDecoded['imagen']);
 
-         echo $result;//need to catch the response, por que return no vale y echo si
+         echo json_encode($result);//need to catch the response, por que return no vale y echo si
 
+      }
+
+      else{ /*if data is not valid*/
+
+         $result=Array(
+
+            'status'=>'No Content',
+            'responseCode' => 204,
+            'message'=>'Connection with server established, but data sent by the client was not valid'
+
+         );
+
+         echo json_encode($result);
       }
       
 
