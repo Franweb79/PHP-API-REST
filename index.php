@@ -179,7 +179,7 @@
 
       $isDescriptionValid=(strlen($dataDecoded['descripcion'])>=10) && strlen($dataDecoded['descripcion'])<=300;
 
-      $isPriceValid=$dataDecoded['precio'] >0;
+      $isPriceValid=$dataDecoded['precio'] >=0;
 
       $isImageValid=(($dataDecoded['imagen'] != "") && ($dataDecoded['imagen'] != NULL) );
 
@@ -194,7 +194,9 @@
 
          
         
-          $objProducto->insertProduct($dataDecoded["nombre"],$dataDecoded["descripcion"],$dataDecoded["precio"], $dataDecoded['imagen']);
+         $result= $objProducto->insertProduct($dataDecoded["nombre"],$dataDecoded["descripcion"],$dataDecoded["precio"], $dataDecoded['imagen']);
+
+         echo $result;//need to catch the response, por que return no vale y echo si
 
       }
       
