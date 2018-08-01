@@ -23,7 +23,7 @@
 
    $objProducto=new  ProductosPDO();
 
-   $imageData="eo";
+   $imageData="";
 
 
 
