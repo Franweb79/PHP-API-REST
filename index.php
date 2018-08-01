@@ -59,125 +59,28 @@
         
         
         
-        $json=$app->request->getBody();
+      $json=$app->request->getBody();
 
        
 
        
         // $json= $app->request->post("json");
 
-        //var_dump($json);
-
-        //die();
-
-       /* var_dump($json);*/
-
-        //$json=json_encode($json);
-
-        //var_dump($json);
+       
 
 
        
         
-        $dataDecoded=json_decode($json,true);
+      $dataDecoded=json_decode($json,true);
 
         
 
         
-
-       
-        
-        //var_dump($dataDecoded);
-
-      // echo $stra=implode(" ",$dataDecoded ); 
-
-     // echo strlen($dataDecoded['nombre'])."\n";
-
-      //  $valor="0.1";
-
-        //compare strings to number with php with operators https://www.dyn-web.com/php/strings/type.php
-
-
-      /*  if($valor>0)
-        {
-            echo "mayor que 0";
-        }
-        else
-        {
-            echo "no";
-        }*/
-        //json_decode($json,true);//el true hace que se nos convierta de un objeto a un array
-
-      // die();
-
-      /*if(strlen($dataDecoded['nombre'])>=3)
-      {
-        echo "bien".$dataDecoded['nombre'];
-
-        var_dump( $dataDecoded['nombre']);
-
-        
-        if( (strlen($dataDecoded['descripcion'])>=10) && (strlen($dataDecoded['descripcion'])<=300))
-        {
-            if($dataDecoded['precio'] >0)
-            {
-
-            }
-        }
-      }
-      else
-      {
-        
-        var_dump( $dataDecoded);
-
-        $result=Array(
-
-            'status' => 'internal server error',
-            'responseCode' => '500',
-            'message' => ' not valid data'
-
-        );
-
-        echo json_encode($result);
-      }
-        */
-      /*
-        if(!isset($dataDecoded['nombre']))
-        {
-            $dataDecoded['nombre']=NULL;
-        }
-        
-        if(!isset($dataDecoded['descripcion']))
-        {
-            $dataDecoded['descripcion']="";
-        }
-
-        
-        if(!isset($dataDecoded['precio']))
-        {
-            $dataDecoded['precio']=NULL;
-        }
-
-
-        if(!isset($dataDecoded['imagen']))
-        {
-            $dataDecoded['imagen']=NULL;
-        }
-
-      */
-      
-    //  var_dump($dataDecoded);
-      /*foreach($dataDecoded as $key => $value)
-      {
-          echo $key . '=>'.$value;
-      }*/
-
-      //declare some variables to evaluate conditions because don´t want to create a very long if later
 
       //this returns 1 when true, and nothing when false
-      $isNameValid=strlen($dataDecoded['nombre'])>=3;
+      $isNameValid=(strlen($dataDecoded['nombre'])>=3) && (strlen($dataDecoded['nombre'])<=15);
 
-      $isDescriptionValid=(strlen($dataDecoded['descripcion'])>=10) && strlen($dataDecoded['descripcion'])<=300;
+      $isDescriptionValid=(strlen($dataDecoded['descripcion'])>=10) && ( strlen($dataDecoded['descripcion'])<=300 );
 
       $isPriceValid=$dataDecoded['precio'] >=0;
 
