@@ -130,7 +130,9 @@
 
      $app->post("/productos/:id_producto",function($id_producto) use($app,$objProducto){
 
-        $newJSONData=$app->request->post("json");
+        //$newJSONData=$app->request->post("json");
+
+        $newJSONData=$app->request->getBody();
         
         $objProducto->updateProductById($id_producto,$newJSONData);
 
