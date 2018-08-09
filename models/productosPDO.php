@@ -290,20 +290,37 @@ class ProductosPDO{
                 //then those fields on new data will be the ones from old data
 
                     $jsonDataDecoded=json_decode($p_newJSONDataToInsert,true);
+
+
+                    /*conditions on variables to make more readable code*/
+
+                    /*if not set data by any reason, or set (form comes) but are only empty spaces -ctype_space==true- or string is empty (0 length), then we take old values */
+                    $isNameValid=!isset($jsonDataDecoded['nombre']) || (isset($jsonDataDecoded["nombre"]) && ctype_space($jsonDataDecoded["nombre"])  ) || (isset($jsonDataDecoded["nombre"]) && strlen($jsonDataDecoded["nombre"])==0 );
                     
-                    if(!isset($jsonDataDecoded['nombre']))
+                    
+                    $isDescriptionValid= !isset($jsonDataDecoded['descripcion']) || (isset($jsonDataDecoded["descripcion"]) && ctype_space($jsonDataDecoded["descripcion"]) ) || (isset($jsonDataDecoded["descripcion"]) && strlen($jsonDataDecoded["descripcion"])==0 );
+
+
+                    $isPriceValid=!isset($jsonDataDecoded['precio']) || (isset($jsonDataDecoded["precio"]) && ctype_space($jsonDataDecoded["precio"]) ) || (isset($jsonDataDecoded["precio"]) && strlen($jsonDataDecoded["precio"])==0 );
+
+
+
+
+
+                    
+                    if( $isNameValid==1 )
                     {
 
                             $jsonDataDecoded['nombre']=$resultOfCheckingIfProductExists["message"]["nombre"];
                     }
 
-                    if(!isset($jsonDataDecoded['descripcion']))
+                    if( $isDescriptionValid==1 )
                     {
 
-                            $jsonDataDecoded['descripcion']=$resultOfCheckingIfProductExists["message"]["descripcion"];
+                            $jsonDataDecoded['descripcion']= $resultOfCheckingIfProductExists["message"]["descripcion"];
                     }
 
-                    if(!isset($jsonDataDecoded['precio']))
+                    if($isPriceValid==1)
                     {
 
                             $jsonDataDecoded['precio']=$resultOfCheckingIfProductExists["message"]["precio"];
