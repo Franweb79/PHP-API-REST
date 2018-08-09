@@ -300,8 +300,8 @@ class ProductosPDO{
                     
                     $isDescriptionValid= !isset($jsonDataDecoded['descripcion']) || (isset($jsonDataDecoded["descripcion"]) && ctype_space($jsonDataDecoded["descripcion"]) ) || (isset($jsonDataDecoded["descripcion"]) && strlen($jsonDataDecoded["descripcion"])==0 );
 
-
-                    $isPriceValid=!isset($jsonDataDecoded['precio']) || (isset($jsonDataDecoded["precio"]) && ctype_space($jsonDataDecoded["precio"]) ) || (isset($jsonDataDecoded["precio"]) && strlen($jsonDataDecoded["precio"])==0 );
+                    /*if price has some error, or blank spaces, or is empty, or is 0*/
+                    $isPriceValid=!isset($jsonDataDecoded['precio']) || (isset($jsonDataDecoded["precio"]) && ctype_space($jsonDataDecoded["precio"]) ) || (isset($jsonDataDecoded["precio"]) && strlen($jsonDataDecoded["precio"])==0 ) ||  (isset($jsonDataDecoded["precio"]) && $jsonDataDecoded["precio"]==0);
 
 
 
@@ -325,7 +325,7 @@ class ProductosPDO{
                     if($isPriceValid==1)
                     {
 
-                            $jsonDataDecoded['precio']=0;
+                            $jsonDataDecoded['precio']="No stock available";
                             
                             //$resultOfCheckingIfProductExists["message"]["precio"];
                     }
