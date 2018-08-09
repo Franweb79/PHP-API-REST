@@ -317,13 +317,17 @@ class ProductosPDO{
                     if( $isDescriptionValid==1 )
                     {
 
-                            $jsonDataDecoded['descripcion']= $resultOfCheckingIfProductExists["message"]["descripcion"];
+                            $jsonDataDecoded['descripcion']= "No description available";
+                            
+                            //$resultOfCheckingIfProductExists["message"]["descripcion"];
                     }
 
                     if($isPriceValid==1)
                     {
 
-                            $jsonDataDecoded['precio']=$resultOfCheckingIfProductExists["message"]["precio"];
+                            $jsonDataDecoded['precio']=0;
+                            
+                            //$resultOfCheckingIfProductExists["message"]["precio"];
                     }
 
                     if(!isset($jsonDataDecoded['imagen']))
