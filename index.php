@@ -138,12 +138,19 @@
 
         $dataDecoded=json_decode($newJSONData,true);
 
-        /*we check if field es empty to set a default text or valid length to store user given text*/
+        /*we check if fields are empty to set a default text or valid length to store user given text*/
 
-        $isDescriptionValid=  (  isDescriptionEmpty( $dataDecoded['descripcion'] )  ) ||  (  (strlen($dataDecoded['descripcion'])>=10) && ( strlen($dataDecoded['descripcion'])<=300 ) );
+        $isNameValid=(  isTextInputFieldNotEmpty( $dataDecoded['nombre'] )  ) ||  (  (strlen($dataDecoded['nombre'])>=3) && (strlen($dataDecoded['nombre'])<=15) );
 
+        $isPriceValid=(  isTextInputFieldNotEmpty( $dataDecoded['precio'] )  ) ||  ( $dataDecoded['precio'] >=0 );
 
-        if($isDescriptionValid==1)
+        $isDescriptionValid=(  isTextInputFieldNotEmpty( $dataDecoded['descripcion'] )  ) ||  (  (strlen($dataDecoded['descripcion'])>=10) && ( strlen($dataDecoded['descripcion'])<=300 ) );
+
+        $isImageValid=(!isset($jsonDataDecoded['imagen']) || (($dataDecoded['imagen'] != "") && ($dataDecoded['imagen'] != NULL)) );
+
+       
+       
+        if($isDescriptionValid==1 && $isNameValid==1 && $isPriceValid==1 && $isImageValid==1)
         {
             /*inside this update, we will check again conditions above to set default text/values or user given text/vañues*/
             

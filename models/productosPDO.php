@@ -301,9 +301,7 @@ class ProductosPDO{
                     $isNameValid=!isset($jsonDataDecoded['nombre']) || (isset($jsonDataDecoded["nombre"]) && ctype_space($jsonDataDecoded["nombre"])  ) || (isset($jsonDataDecoded["nombre"]) && strlen($jsonDataDecoded["nombre"])==0 );
                     
                     
-                   // $isDescriptionValid= isDescriptionEmpty(// $jsonDataDecoded['descripcion'] );
                     
-                    $isDescriptionValid=!isset($jsonDataDecoded['descripcion']) || (isset($jsonDataDecoded["descripcion"]) && ctype_space($jsonDataDecoded["descripcion"]) ) || (isset($jsonDataDecoded["descripcion"]) && strlen($jsonDataDecoded["descripcion"])==0 );
 
                     /*if price has some error, or blank spaces, or is empty, or is 0*/
                     $isPriceValid=!isset($jsonDataDecoded['precio']) || (isset($jsonDataDecoded["precio"]) && ctype_space($jsonDataDecoded["precio"]) ) || (isset($jsonDataDecoded["precio"]) && strlen($jsonDataDecoded["precio"])==0 ) ||  (isset($jsonDataDecoded["precio"]) && $jsonDataDecoded["precio"]==0);
@@ -319,27 +317,42 @@ class ProductosPDO{
                             $jsonDataDecoded['nombre']=$resultOfCheckingIfProductExists["message"]["nombre"];
                     }
 
-                   // echo isDescriptionEmpty( $jsonDataDecoded['descripcion'] );
+                   // echo isTextInputFieldNotEmpty( $jsonDataDecoded['descripcion'] );
 
                     
                    //we check if field is empty to set a default value. If not, we let the value given by user (we do nothing)
 
-                    if( isDescriptionEmpty( $jsonDataDecoded['descripcion'] ) ==true )
+                    
+                   
+                   if( isTextInputFieldNotEmpty( $jsonDataDecoded['nombre'] ) ==true )
+                   {
+                           
+                        $jsonDataDecoded['nombre']=$resultOfCheckingIfProductExists["message"]["nombre"];
+                           
+                           //$resultOfCheckingIfProductExists["message"]["descripcion"];
+                   }
+
+                   if( isTextInputFieldNotEmpty( $jsonDataDecoded['precio'] ) ==true )
+                   {
+                        $jsonDataDecoded['precio']=0;
+
+                           
+                           //$resultOfCheckingIfProductExists["message"]["descripcion"];
+                   }
+                   
+                   
+                   
+                   
+                   if( isTextInputFieldNotEmpty( $jsonDataDecoded['descripcion'] ) ==true )
                     {
                             
-                            $jsonDataDecoded['descripcion']= "No description available";
+                        $jsonDataDecoded['descripcion']= "No description available";
                             
                             //$resultOfCheckingIfProductExists["message"]["descripcion"];
                     }
                    
 
-                    if($isPriceValid==1)
-                    {
-
-                            $jsonDataDecoded['precio']="No stock available";
-                            
-                            //$resultOfCheckingIfProductExists["message"]["precio"];
-                    }
+                  //for image, that is enough:
 
                     if(!isset($jsonDataDecoded['imagen']))
                     {

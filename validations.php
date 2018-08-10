@@ -1,8 +1,8 @@
 <?php
 
-    function isDescriptionEmpty($p_description)//jsondatadecodes[descriptcon]will be parameter passed
+    function isTextInputFieldNotEmpty($p_stringToCheck)//jsondatadecodes[descriptcon]will be parameter passed
     {
-        if( (!isset($p_description) || ( isset($p_description) && ctype_space($p_description) ) || (isset($p_description) && strlen($p_description)==0 ))  )
+        if( (!isset($p_stringToCheck) || ( isset($p_stringToCheck) && ctype_space($p_stringToCheck) ) || (isset($p_stringToCheck) && strlen($p_stringToCheck)==0 ))  )
         {
             
             
@@ -16,6 +16,25 @@
         }
         
     }
+
+    function isFileInputFieldNotEmptyOrNull($p_fileDataToCheck)
+    {
+        
+        if( (!isset($p_fileDataToCheck)) || ( isset($p_fileDataToCheck) &&  ($p_fileDataToCheck != "") && ($p_fileDataToCheck != NULL)) )
+        {
+            
+            
+            return true;
+        }
+        else
+        {   
+           
+           
+            return false;
+        }
+
+    }
+
 
     
 
