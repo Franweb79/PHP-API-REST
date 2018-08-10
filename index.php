@@ -76,34 +76,36 @@
       $dataDecoded=json_decode($json,true);
 
         
-
-        
+      //this time is different than in updateProduct. Name can´t be left empty this time, so is only valid if length is bet.3 and 15.
 
       //this returns 1 when true, and nothing when false
+      
       $isNameValid=(strlen($dataDecoded['nombre'])>=3) && (strlen($dataDecoded['nombre'])<=15);
 
-      $isDescriptionValid=(strlen($dataDecoded['descripcion'])>=10) && ( strlen($dataDecoded['descripcion'])<=300 );
 
-      $isPriceValid=$dataDecoded['precio'] >=0;
+      
 
-      $isImageValid=(($dataDecoded['imagen'] != "") && ($dataDecoded['imagen'] != NULL) );
-
-    
+      //the other text field can be empty, so we set a default text in case empty is true inside insertProduct,
+      //and here we consider it valid (we have to use the isTextInputFieldEmpty method) since we have default values to insert in case this field is empty "(no description available")
 
 
-      //so, now
-      if($isNameValid==1 && $isDescriptionValid==1 && $isPriceValid==1 && $isImageValid==1)
+      $isPriceValid=(  isTextInputFieldEmpty( $dataDecoded['precio'] )  ) ||  ( $dataDecoded['precio'] >=0 );
+
+      $isDescriptionValid=(  isTextInputFieldEmpty( $dataDecoded['descripcion'] )  ) ||  (  (strlen($dataDecoded['descripcion'])>=10) && ( strlen($dataDecoded['descripcion'])<=300 ) );
+
+      $isImageValid=(!isset($jsonDataDecoded['imagen']) || (($dataDecoded['imagen'] != "") && ($dataDecoded['imagen'] != NULL)) );
+
+     
+     
+      if( $isNameValid==1 && $isPriceValid==1 && $isDescriptionValid==1 && $isImageValid==1)
       {
-          //echo "ok";
 
+        $result= $objProducto->insertProduct($dataDecoded["nombre"],$dataDecoded["descripcion"],$dataDecoded["precio"], $dataDecoded['imagen']);
 
-         
-        
-         $result= $objProducto->insertProduct($dataDecoded["nombre"],$dataDecoded["descripcion"],$dataDecoded["precio"], $dataDecoded['imagen']);
-
-         echo json_encode($result);//need to catch the response, por que return no vale y echo si
-
+        echo json_encode($result);//need to catch the response, por que return no vale y echo si
       }
+
+
 
       else{ /*if data is not valid*/
 
@@ -138,13 +140,13 @@
 
         $dataDecoded=json_decode($newJSONData,true);
 
-        /*we check if fields are empty to set a default text or valid length to store user given text*/
+        /*we check if fields are empty to set a default text (thats why "empty" would be considered valid here) or valid length to store user given text*/
 
-        $isNameValid=(  isTextInputFieldNotEmpty( $dataDecoded['nombre'] )  ) ||  (  (strlen($dataDecoded['nombre'])>=3) && (strlen($dataDecoded['nombre'])<=15) );
+        $isNameValid=(  isTextInputFieldEmpty( $dataDecoded['nombre'] )  ) ||  (  (strlen($dataDecoded['nombre'])>=3) && (strlen($dataDecoded['nombre'])<=15) );
 
-        $isPriceValid=(  isTextInputFieldNotEmpty( $dataDecoded['precio'] )  ) ||  ( $dataDecoded['precio'] >=0 );
+        $isPriceValid=(  isTextInputFieldEmpty( $dataDecoded['precio'] )  ) ||  ( $dataDecoded['precio'] >=0 );
 
-        $isDescriptionValid=(  isTextInputFieldNotEmpty( $dataDecoded['descripcion'] )  ) ||  (  (strlen($dataDecoded['descripcion'])>=10) && ( strlen($dataDecoded['descripcion'])<=300 ) );
+        $isDescriptionValid=(  isTextInputFieldEmpty( $dataDecoded['descripcion'] )  ) ||  (  (strlen($dataDecoded['descripcion'])>=10) && ( strlen($dataDecoded['descripcion'])<=300 ) );
 
         $isImageValid=(!isset($jsonDataDecoded['imagen']) || (($dataDecoded['imagen'] != "") && ($dataDecoded['imagen'] != NULL)) );
 

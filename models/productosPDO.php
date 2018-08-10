@@ -201,6 +201,35 @@ class ProductosPDO{
                 $conn=new ConnectionDataBasePDO();
 
                 $conn-> openConnectionPDO();
+
+                //this time is different than in updateProduct. 
+                /*Name can´t be left empty this time, so we will validate proper length outside
+                on index.php
+                
+                SO, WE DO NOTHING WITH NAME HERE
+                
+                */
+
+                 //the other text field can be empty, so we set a default text in case empty is true 
+
+
+                if( isTextInputFieldEmpty( $p_precio) ==true )
+                {
+                     $p_precio=0;
+
+                        
+                        //$resultOfCheckingIfProductExists["message"]["descripcion"];
+                }
+
+                if( isTextInputFieldEmpty( $p_descripcion ) ==true )
+                {
+                        
+                    $p_descripcion= "No description available";
+                        
+                        //$resultOfCheckingIfProductExists["message"]["descripcion"];
+                }
+               
+                //imagen?
         
         
                 $sql="INSERT INTO productos (nombre,descripcion,precio,imagen) VALUES (:nombre,:descripcion,:precio,:imagen)";
@@ -297,34 +326,16 @@ class ProductosPDO{
 
                     /*conditions on variables to make more readable code*/
 
-                    /*if not set data by any reason, or set (form comes) but are only empty spaces -ctype_space==true- or string is empty (0 length), then we take old values */
-                    $isNameValid=!isset($jsonDataDecoded['nombre']) || (isset($jsonDataDecoded["nombre"]) && ctype_space($jsonDataDecoded["nombre"])  ) || (isset($jsonDataDecoded["nombre"]) && strlen($jsonDataDecoded["nombre"])==0 );
-                    
-                    
-                    
-
-                    /*if price has some error, or blank spaces, or is empty, or is 0*/
-                    $isPriceValid=!isset($jsonDataDecoded['precio']) || (isset($jsonDataDecoded["precio"]) && ctype_space($jsonDataDecoded["precio"]) ) || (isset($jsonDataDecoded["precio"]) && strlen($jsonDataDecoded["precio"])==0 ) ||  (isset($jsonDataDecoded["precio"]) && $jsonDataDecoded["precio"]==0);
-
-
-
-
 
                     
-                    if( $isNameValid==1 )
-                    {
-
-                            $jsonDataDecoded['nombre']=$resultOfCheckingIfProductExists["message"]["nombre"];
-                    }
-
-                   // echo isTextInputFieldNotEmpty( $jsonDataDecoded['descripcion'] );
+                   
 
                     
                    //we check if field is empty to set a default value. If not, we let the value given by user (we do nothing)
 
                     
                    
-                   if( isTextInputFieldNotEmpty( $jsonDataDecoded['nombre'] ) ==true )
+                   if( isTextInputFieldEmpty( $jsonDataDecoded['nombre'] ) ==true )
                    {
                            
                         $jsonDataDecoded['nombre']=$resultOfCheckingIfProductExists["message"]["nombre"];
@@ -332,7 +343,7 @@ class ProductosPDO{
                            //$resultOfCheckingIfProductExists["message"]["descripcion"];
                    }
 
-                   if( isTextInputFieldNotEmpty( $jsonDataDecoded['precio'] ) ==true )
+                   if( isTextInputFieldEmpty( $jsonDataDecoded['precio'] ) ==true )
                    {
                         $jsonDataDecoded['precio']=0;
 
@@ -343,7 +354,7 @@ class ProductosPDO{
                    
                    
                    
-                   if( isTextInputFieldNotEmpty( $jsonDataDecoded['descripcion'] ) ==true )
+                   if( isTextInputFieldEmpty( $jsonDataDecoded['descripcion'] ) ==true )
                     {
                             
                         $jsonDataDecoded['descripcion']= "No description available";
