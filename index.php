@@ -5,6 +5,8 @@
 
     require_once 'vendor/autoload.php';
 
+    require_once ('validations.php');
+
     header('Access-Control-Allow-Origin: *');
     header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
@@ -133,8 +135,24 @@
         //$newJSONData=$app->request->post("json");
 
         $newJSONData=$app->request->getBody();
+
+        $dataDecoded=json_decode($newJSONData,true);
+
+        /*we check if field es empty to set a default text or valid length to store user given text*/
+
+        $isDescriptionValid=  (  isDescriptionEmpty( $dataDecoded['descripcion'] )  ) ||  (  (strlen($dataDecoded['descripcion'])>=10) && ( strlen($dataDecoded['descripcion'])<=300 ) );
+
+
+        if($isDescriptionValid==1)
+        {
+            /*inside this update, we will check again conditions above to set default text/values or user given text/vañues*/
+            
+            $objProducto->updateProductById($id_producto,$dataDecoded);
+
+        }
+
+       
         
-        $objProducto->updateProductById($id_producto,$newJSONData);
 
 
      });

@@ -3,6 +3,9 @@
 
 require_once('ConnectPDO.php');
 
+/*https://stackoverflow.com/questions/12954578/php-require-relative-path-error*/
+require_once(__DIR__.'/../validations.php');
+
 
 class ProductosPDO{
 
@@ -263,7 +266,7 @@ class ProductosPDO{
 
     //ACTUALIZAR PRODUCTO
 
-    public function updateProductById($p_idProducto,$p_newJSONDataToInsert)
+    public function updateProductById($p_idProducto,$jsonDataDecoded)
     {
         try{
 
@@ -282,14 +285,14 @@ class ProductosPDO{
             
                 if($resultOfCheckingIfProductExists['responseCode']==404)
                 {
-                    echo "no existe";
+                    echo "This product don´t exist on our database";
                 }
                 if($resultOfCheckingIfProductExists['responseCode']==200)
                 {
                 //if product exists, we will check if fields are empty on new data,
                 //then those fields on new data will be the ones from old data
 
-                    $jsonDataDecoded=json_decode($p_newJSONDataToInsert,true);
+                    //$jsonDataDecoded=json_decode($p_newJSONDataToInsert,true);
 
 
                     /*conditions on variables to make more readable code*/
@@ -298,7 +301,9 @@ class ProductosPDO{
                     $isNameValid=!isset($jsonDataDecoded['nombre']) || (isset($jsonDataDecoded["nombre"]) && ctype_space($jsonDataDecoded["nombre"])  ) || (isset($jsonDataDecoded["nombre"]) && strlen($jsonDataDecoded["nombre"])==0 );
                     
                     
-                    $isDescriptionValid= !isset($jsonDataDecoded['descripcion']) || (isset($jsonDataDecoded["descripcion"]) && ctype_space($jsonDataDecoded["descripcion"]) ) || (isset($jsonDataDecoded["descripcion"]) && strlen($jsonDataDecoded["descripcion"])==0 );
+                   // $isDescriptionValid= isDescriptionEmpty(// $jsonDataDecoded['descripcion'] );
+                    
+                    $isDescriptionValid=!isset($jsonDataDecoded['descripcion']) || (isset($jsonDataDecoded["descripcion"]) && ctype_space($jsonDataDecoded["descripcion"]) ) || (isset($jsonDataDecoded["descripcion"]) && strlen($jsonDataDecoded["descripcion"])==0 );
 
                     /*if price has some error, or blank spaces, or is empty, or is 0*/
                     $isPriceValid=!isset($jsonDataDecoded['precio']) || (isset($jsonDataDecoded["precio"]) && ctype_space($jsonDataDecoded["precio"]) ) || (isset($jsonDataDecoded["precio"]) && strlen($jsonDataDecoded["precio"])==0 ) ||  (isset($jsonDataDecoded["precio"]) && $jsonDataDecoded["precio"]==0);
@@ -314,13 +319,19 @@ class ProductosPDO{
                             $jsonDataDecoded['nombre']=$resultOfCheckingIfProductExists["message"]["nombre"];
                     }
 
-                    if( $isDescriptionValid==1 )
-                    {
+                   // echo isDescriptionEmpty( $jsonDataDecoded['descripcion'] );
 
+                    
+                   //we check if field is empty to set a default value. If not, we let the value given by user (we do nothing)
+
+                    if( isDescriptionEmpty( $jsonDataDecoded['descripcion'] ) ==true )
+                    {
+                            
                             $jsonDataDecoded['descripcion']= "No description available";
                             
                             //$resultOfCheckingIfProductExists["message"]["descripcion"];
                     }
+                   
 
                     if($isPriceValid==1)
                     {
