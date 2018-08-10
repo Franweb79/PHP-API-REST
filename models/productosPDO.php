@@ -229,7 +229,7 @@ class ProductosPDO{
                         //$resultOfCheckingIfProductExists["message"]["descripcion"];
                 }
                
-                //imagen?
+              
         
         
                 $sql="INSERT INTO productos (nombre,descripcion,precio,imagen) VALUES (:nombre,:descripcion,:precio,:imagen)";
