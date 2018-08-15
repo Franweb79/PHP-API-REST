@@ -171,11 +171,26 @@ class ProductosPDO{
 
              $count = $sth->rowCount();// check affected rows using rowCount
              if ($count > 0) {
-                 echo 'Success - The record has been deleted.';
+
+                 $result=Array(
+
+                    'status' => 'success',
+                    'responseCode' => 200,
+                    'message'=>'The record has been deleted.'
+                );
+                
              } else {
-                 echo "No product with that ID, so could not delete";
+
+                $result=Array(
+
+                    'status' => 'success',
+                    'responseCode' => 500,
+                    'message'=>"No product with that ID, so could not delete"
+                );
+                 
              }
 
+             echo json_encode($result);
           
              $conn->closeConnectionPDO();
         }
