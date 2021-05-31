@@ -12,8 +12,8 @@
         function __construct()
         {
             $this->servername = "localhost";
-            $this->username = "frangod";
-            $this->password = "pa*2018";
+            $this->username = ""; /*of course, user and pass deleted here*/
+            $this->password = "";
             $this->database="curso_angular_victor_apirest";
             $this->connection="";
         }
